@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+</head>
+<body>
+	
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			console.log('document_ready');		
+
+		
+
+			$('#cal').click(function(){
+				Calculate();
+			});
+			
+
+function Calculate(){
+			var loan=+$('#amt').val();
+			var interest=(+$('#rate').val()/100)/12;
+			var term=+$('#year').val()*12;
+			var amount=loan*((interest*(1+interest)*term)/((1+interest)*term-1)); 
+			var res=amount.toFixed();  
+
+			$('#mp').text(res.toLocaleString());
+			$('#totalint').text(interest.toLocaleString());
+			$('#amt1').text(loan.toLocaleString());
+			$('#irate').text($('#rate').val());
+			$('.year1').text($('#year').val());
+			$('.tint').text($('#year').val());
+			$('.tbod').html('');
+
+			var mno=1,totalint=0;
+			for(var i=1;i<=12;i++){
+				var montint=loan*interest;
+					//mno++;
+
+					$('.tbod').append("<tr><td>"+"Month #"+i+"</td><td>"+loan.toFixed()+"</td><td>"+montint.toFixed()+"</td><td>"+res+"</td></tr>");
+					loan=loan+montint-amount;
+					totalint+=montint;
+
+				};
+
+			};
+
+
+		});
+
+		
+		</script>
+
+		<div class="jumbotron">
+			<h1 class="ml-5">Home Loan Calculator</h1>
+		</div>
+
+		<div class="container">
+			<div class="offset-3">
+				<form>
+					<div class="form-group row">
+						<label for="loan" class="col-md-3">Loan Amount:</label>
+						<div class="col-md-5">
+							<input type="number"  class="form-control" id="amt">
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label for="rate" class="col-md-3">Interest Rate:</label>
+						<div class="col-md-5">
+							<input type="number"  class="form-control" id="rate">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="term" class="col-md-3">Term:</label>
+						<div class="col-md-5">
+							<input type="number"  class="form-control" id="year">
+						</div>
+					</div>
+
+				</form>
+
+
+
+				<div class="row">
+					<div class="col-md-2 my-2">			
+
+					</div>
+					<div class="col-md-2 my-2">			
+
+					</div>
+					<div class="col-md-2 my-2">			
+						<button class="btn btn-outline-danger btn-block" id="cal">Calculator</button>
+					</div>
+
+					<div class="col-md-2 my-2">
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<br>
+		<br>
+
+
+		<div class="container">
+			<div class="">
+				<div class="row">
+
+					<div class="col-md-4">
+
+						<table class="table table-bordered">
+							<thead>
+								<tr class="tableheading">
+									<th colspan="2">Your Loan Payment</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Monthly Payment</td>
+									<td><span id="mp"></span></td>
+								</tr>
+								<tr>
+									<td>(<span class="tint"></span>) Total Interest</td>
+									<td><span id="totalint"></span></td>
+								</tr>
+								<tr>
+									<td>Loan Amount</td>
+									<td><span id="amt1"></span></td>
+								</tr>
+								<tr>
+									<td>Interest Rate</td>
+									<td><span id="irate"></span>%</td>
+								</tr>
+								<tr>
+									<td>Term</td>
+									<td><span class="year1"></span> year</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+
+					</div>
+
+
+
+					<div class="col-md-1"></div>
+
+					<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-12 text-center">
+								<h5>Loan Payment Over 1 Year</h5>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 bg-light p-0">
+								<table class="table table-bordered">
+									<thead class="bg-light">
+										<tr><th>
+											Months
+										</th>
+										<th>
+											Loan Amount
+										</th>
+										<th>
+											Interest Rate
+										</th>
+										<th>
+											Monthly Payment
+										</th>
+									</tr>
+									<tbody class="tbod"></tbody>
+
+								</thead>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>	
+		</div>
+
+
+
+	</body>
+	</html>
+
+
+
+
